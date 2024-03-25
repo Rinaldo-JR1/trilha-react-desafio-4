@@ -19,6 +19,7 @@ const schema = yup
 
 const Login = () => {
   const {
+    register,
     control,
     formState: { errors, isValid },
   } = useForm<IFormLogin>({
@@ -27,6 +28,13 @@ const Login = () => {
     defaultValues,
     reValidateMode: "onChange",
   });
+  const handleSubmit = () => {
+    if (isValid) {
+      alert("Formulário válido");
+    } else {
+      alert("Formulário inválido");
+    }
+  };
 
   return (
     <Container>
@@ -35,21 +43,21 @@ const Login = () => {
           <Title>Login</Title>
           <Spacing />
           <Input
-            name="email"
             placeholder="Email"
             control={control}
             errorMessage={errors?.email?.message}
+            {...register("email")}
           />
           <Spacing />
           <Input
-            name="password"
+            {...register("password")}
             type="password"
             placeholder="Senha"
             control={control}
             errorMessage={errors?.password?.message}
           />
           <Spacing />
-          <Button title="Entrar" />
+          <Button onClick={handleSubmit} valid={isValid} title="Entrar" />
         </Column>
       </LoginContainer>
     </Container>
